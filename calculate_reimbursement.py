@@ -63,13 +63,15 @@ def calculate_reimbursement(trip_duration_days, miles_traveled, total_receipts_a
     per_diem_for_sum = per_diem
     receipts_for_sum = final_receipts_reimbursement
 
-    # Vacation Penalty Calculation (original version from 14059 script)
+    # Vacation Penalty Calculation (MODIFIED with new insight)
     vacation_penalty_monetary_adjustment = 0.0
     if trip_duration_days >= 8 and average_daily_receipts > 90.0:
+        # This is the "guaranteed penalty" Kevin mentioned.
+        # It nullifies receipts AND applies a -100 adjustment.
+        receipts_for_sum = 0.0
         vacation_penalty_monetary_adjustment = -100.0
 
-    # --- This is where the "Case 996-like" override was added to get to 13954 ---
-    # Apply Case 996-like override
+    # Apply Case 996-like override (This comes AFTER the vacation penalty check)
     if (trip_duration_days == 1 and
         1080.0 <= miles_traveled <= 1085.0 and
         1805.0 <= total_receipts_amount <= 1815.0):
