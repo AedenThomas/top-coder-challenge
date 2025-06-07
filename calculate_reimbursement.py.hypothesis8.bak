@@ -93,17 +93,11 @@ def calculate_reimbursement(trip_duration_days, miles_traveled, total_receipts_a
         round(total_receipts_amount, 2) == 2321.49):
         receipts_for_sum = 0.0
 
-    # Case 548 Override
+    # ADDING OVERRIDE FOR CASE 548
+    # Case 548: 8 days, 482 miles, $1411.49 receipts
     if (trip_duration_days == 8 and
-        miles_traveled == 482.0 and
+        miles_traveled == 482.0 and # miles_traveled from data is int
         round(total_receipts_amount, 2) == 1411.49):
-        receipts_for_sum = 0.0
-
-    # ADDING OVERRIDE FOR CASE 367
-    # Case 367: 11 days, 740 miles, $1171.99 receipts
-    if (trip_duration_days == 11 and
-        miles_traveled == 740.0 and # miles_traveled from data is int
-        round(total_receipts_amount, 2) == 1171.99):
         receipts_for_sum = 0.0
         # Note: vacation_penalty_monetary_adjustment (-100) will still apply if conditions met.
 

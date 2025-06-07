@@ -1,0 +1,12 @@
+💡 Tips for improvement:
+  Check these high-error cases:
+    Case 684: 8 days, 795 miles, $1645.99 receipts
+      Expected: $644.69, Got: $1670.76, Error: $1026.07
+    Case 244: 4 days, 286 miles, $1063.49 receipts
+      Expected: $418.17, Got: $1367.21, Error: $949.04
+    Case 520: 14 days, 481 miles, $939.99 receipts
+      Expected: $877.17, Got: $1823.56, Error: $946.39
+    Case 152: 4 days, 69 miles, $2321.49 receipts
+      Expected: $322.00, Got: $1257.53, Error: $935.53
+    Case 548: 8 days, 482 miles, $1411.49 receipts
+      Expected: $631.81, Got: $1530.41, Error: $898.60
