@@ -1,0 +1,10 @@
+    Case 971: 14 days, 1158 miles, $2104.61 receipts
+      Expected: $1899.69, Got: $2734.10, Error: $834.41
+    Case 304: 14 days, 1184 miles, $2269.89 receipts
+      Expected: $1943.24, Got: $2745.80, Error: $802.56
+    Case 550: 12 days, 1075 miles, $2328.11 receipts
+      Expected: $1798.38, Got: $2596.75, Error: $798.37
+    Case 984: 14 days, 1090 miles, $2248.68 receipts
+      Expected: $1905.50, Got: $2703.50, Error: $798.00
+    Case 242: 14 days, 1056 miles, $2489.69 receipts
+      Expected: $1894.16, Got: $2688.20, Error: $794.04

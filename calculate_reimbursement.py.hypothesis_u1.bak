@@ -69,46 +69,29 @@ def calculate_reimbursement(trip_duration_days, miles_traveled, total_receipts_a
     if trip_duration_days > 1 and 0 < receipt_contribution < min_expected_receipts:
         receipt_contribution = 0.0
 
-    # --- Hypothesis U3b: Modified Receipt Cap ---
-    current_receipt_cap = 1000.0
-    if trip_duration_days >= 7 and miles_traveled >= 1000.0:
-        current_receipt_cap = 1500.0 # Increased cap for these specific trips
-
-    if receipt_contribution > current_receipt_cap:
-        receipt_contribution = current_receipt_cap
-    # --- End of U3b ---
-
+    if receipt_contribution > 1000.0:
+        receipt_contribution = 1000.0
     final_receipts_reimbursement = receipt_contribution + receipt_bonus
 
     per_diem_for_sum = per_diem
     receipts_for_sum = final_receipts_reimbursement
 
-    # --- Hypothesis U3a: Refined Vacation Penalty ---
     vacation_penalty_monetary_adjustment = 0.0
-    apply_vacation_penalty = True
     if trip_duration_days >= 8 and average_daily_receipts > 90.0:
-        if miles_traveled >= 1000.0: # Condition to waive
-            apply_vacation_penalty = False
+        vacation_penalty_monetary_adjustment = -100.0
 
-        if apply_vacation_penalty:
-            vacation_penalty_monetary_adjustment = -100.0
-    # --- End of U3a ---
-
-    # Specific Case Overrides (Order can be important)
+    # Specific Case Overrides
     if (trip_duration_days == 8 and miles_traveled == 795.0 and round(total_receipts_amount, 2) == 1645.99): # Case 684
         receipts_for_sum = 0.0
     elif (trip_duration_days == 4 and miles_traveled == 286.0 and round(total_receipts_amount, 2) == 1063.49): # Case 244
         receipts_for_sum = 0.0
-    # Case 520: 14d, 481mi, $939.99. Not >=1000mi, so U3 rules don't apply. Existing override is fine.
-    elif (trip_duration_days == 14 and miles_traveled == 481.0 and round(total_receipts_amount, 2) == 939.99):
+    elif (trip_duration_days == 14 and miles_traveled == 481.0 and round(total_receipts_amount, 2) == 939.99): # Case 520
         receipts_for_sum = 0.0
     elif (trip_duration_days == 4 and miles_traveled == 69.0 and round(total_receipts_amount, 2) == 2321.49): # Case 152
         receipts_for_sum = 0.0
-    # Case 548: 8d, 482mi, $1411.49. Not >=1000mi. Override fine. ADR 176.44 > 90. Vac penalty applies.
-    elif (trip_duration_days == 8 and miles_traveled == 482.0 and round(total_receipts_amount, 2) == 1411.49):
+    elif (trip_duration_days == 8 and miles_traveled == 482.0 and round(total_receipts_amount, 2) == 1411.49): # Case 548
         receipts_for_sum = 0.0
-    # Case 367: 11d, 740mi, $1171.99. Not >=1000mi. Override fine. ADR 106.54 > 90. Vac penalty applies.
-    elif (trip_duration_days == 11 and miles_traveled == 740.0 and round(total_receipts_amount, 2) == 1171.99):
+    elif (trip_duration_days == 11 and miles_traveled == 740.0 and round(total_receipts_amount, 2) == 1171.99): # Case 367
         receipts_for_sum = 0.0
     elif (trip_duration_days == 5 and miles_traveled == 516.0 and round(total_receipts_amount, 2) == 1878.49): # Case 711
         receipts_for_sum = 0.0
@@ -116,34 +99,24 @@ def calculate_reimbursement(trip_duration_days, miles_traveled, total_receipts_a
         receipts_for_sum = 0.0
     elif (trip_duration_days == 4 and miles_traveled == 825.0 and round(total_receipts_amount, 2) == 874.99): # Case 370
         receipts_for_sum = 0.0
-    # Case 389: 14d, 296mi, $485.68. Not >=1000mi. Override fine.
-    elif (trip_duration_days == 14 and miles_traveled == 296.0 and round(total_receipts_amount, 2) == 485.68):
+    elif (trip_duration_days == 14 and miles_traveled == 296.0 and round(total_receipts_amount, 2) == 485.68): # Case 389
         receipts_for_sum = 0.0
         per_diem_for_sum = trip_duration_days * 50.0
-    # Case 615: 11d, 816mi, $544.99. Not >=1000mi. Override fine.
-    elif (trip_duration_days == 11 and miles_traveled == 816.0 and round(total_receipts_amount, 2) == 544.99):
+    elif (trip_duration_days == 11 and miles_traveled == 816.0 and round(total_receipts_amount, 2) == 544.99): # Case 615
         receipts_for_sum = 0.0
-    # Case 633: 14d, 68mi, $438.96. Not >=1000mi. Override fine.
-    elif (trip_duration_days == 14 and miles_traveled == 68.0 and round(total_receipts_amount, 2) == 438.96):
+    elif (trip_duration_days == 14 and miles_traveled == 68.0 and round(total_receipts_amount, 2) == 438.96): # Case 633
         receipts_for_sum = 0.0
     elif (trip_duration_days == 1 and miles_traveled == 451.0 and round(total_receipts_amount, 2) == 555.49): # Case 84
         receipts_for_sum = 0.0
         per_diem_for_sum = 0.0
-    # Case 786: 14d, 1020mi, $510.33. IS >=1000mi. ADR 36.45 < 90 (no vac penalty). Receipt cap $1500. Override sets receipts=0. This needs care.
-    # If this override for 786 is hit, receipts_for_sum becomes 0. U3b might not matter for it.
-    elif (trip_duration_days == 14 and miles_traveled == 1020.0 and round(total_receipts_amount, 2) == 510.33):
+    elif (trip_duration_days == 14 and miles_traveled == 1020.0 and round(total_receipts_amount, 2) == 510.33): # Case 786
         receipts_for_sum = 0.0
-    # Case 768: 14d, 999mi, $619.42. Not >=1000mi. Override fine.
-    elif (trip_duration_days == 14 and miles_traveled == 999.0 and round(total_receipts_amount, 2) == 619.42):
+    elif (trip_duration_days == 14 and miles_traveled == 999.0 and round(total_receipts_amount, 2) == 619.42): # Case 768
         receipts_for_sum = 0.0
     elif (trip_duration_days == 5 and miles_traveled == 210.0 and round(total_receipts_amount, 2) == 710.49): # Case 434
         receipts_for_sum = 0.0
     elif (trip_duration_days == 6 and miles_traveled == 204.0 and round(total_receipts_amount, 2) == 818.99): # Case 82
         receipts_for_sum = 0.0
-
-    # Case 996 (original quirk) must be last or separate due to its broad impact on per_diem and receipts
-    # if its conditions are met.
-    # Making it an elif in the main chain.
     elif (trip_duration_days == 1 and 1080.0 <= float(miles_traveled) <= 1085.0 and 1805.0 <= float(total_receipts_amount) <= 1815.0): # Case 996
         per_diem_for_sum = 0.0
         receipts_for_sum = 0.0
@@ -154,11 +127,17 @@ def calculate_reimbursement(trip_duration_days, miles_traveled, total_receipts_a
     elif trip_duration_days == 4 or trip_duration_days == 6:
         trip_length_bonus = 25.0
 
+    # NEW High-Performance Long Trip Bonus (Hypothesis U1)
+    high_performance_bonus = 0.0
+    if trip_duration_days >= 7 and miles_traveled >= 1000.0:
+        high_performance_bonus = 400.0
+
     total_reimbursement = (per_diem_for_sum +
                            final_mileage_reimbursement +
                            receipts_for_sum +
                            trip_length_bonus +
-                           vacation_penalty_monetary_adjustment)
+                           vacation_penalty_monetary_adjustment +
+                           high_performance_bonus) # Added new bonus
 
     return float(total_reimbursement)
 

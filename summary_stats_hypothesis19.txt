@@ -1,0 +1,5 @@
+  Total test cases: 1000
+  Successful runs: 1000
+  Average error: $121.64
+  Maximum error: $613.66
+🎯 Your Score: 12264.00 (lower is better)

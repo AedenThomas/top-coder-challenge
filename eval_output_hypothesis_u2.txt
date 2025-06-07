@@ -1,0 +1,39 @@
+🧾 Black Box Challenge - Reimbursement System Evaluation
+=======================================================
+
+📊 Running evaluation against 1,000 test cases...
+
+Extracting test data...
+✅ Evaluation Complete!
+
+📈 Results Summary:
+  Total test cases: 1000
+  Successful runs: 1000
+  Exact matches (±$0.01): 0 (0%)
+  Close matches (±$1.00): 3 (.3%)
+  Average error: $138.72
+  Maximum error: $934.41
+
+🎯 Your Score: 13972.00 (lower is better)
+
+📚 Keep analyzing the patterns in the interviews and test cases.
+
+💡 Tips for improvement:
+  Check these high-error cases:
+    Case 971: 14 days, 1158 miles, $2104.61 receipts
+      Expected: $1899.69, Got: $2834.10, Error: $934.41
+    Case 304: 14 days, 1184 miles, $2269.89 receipts
+      Expected: $1943.24, Got: $2845.80, Error: $902.56
+    Case 984: 14 days, 1090 miles, $2248.68 receipts
+      Expected: $1905.50, Got: $2803.50, Error: $898.00
+    Case 242: 14 days, 1056 miles, $2489.69 receipts
+      Expected: $1894.16, Got: $2788.20, Error: $894.04
+    Case 793: 13 days, 1186 miles, $2462.26 receipts
+      Expected: $1906.35, Got: $2746.70, Error: $840.35
+
+📝 Next steps:
+  1. Fix any script errors shown above
+  2. Ensure your run.sh outputs only a number
+  3. Analyze the patterns in the interviews and public cases
+  4. Test edge cases around trip length and receipt amounts
+  5. Submit your solution via the Google Form when ready!
